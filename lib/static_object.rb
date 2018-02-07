@@ -1,3 +1,5 @@
+require 'kramdown'
+
 class StaticObject
 
   def initialize(entry)
@@ -26,6 +28,10 @@ class StaticObject
     @entry.send(:nav_name)
   rescue
     @entry.title
+  end
+
+  def body
+    Kramdown::Document.new(@entry.send(:body)).to_html
   end
 
   def method_missing(method, *args, &block)
